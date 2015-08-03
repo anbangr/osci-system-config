@@ -15,9 +15,17 @@ node default {
 }
 
 node 'jenkins.lab.100percentit.com' {
+
+  #$group = "jenkins"
+  $zmq_event_receivers = ['jenkins.lab.100percentit.com']
+  $iptables_rule = regsubst ($zmq_event_receivers,
+                             '^(.*)$', '-m state --state NEW -m tcp -p tcp --dport 8888 -s \1 -j ACCEPT')
   class { 'openstack_project::server':
-    iptables_public_tcp_ports => [4505, 4506, 8140],
+    iptables_public_tcp_ports => [80, 443, 4505, 4506, 8140],
+    iptables_rules6           => $iptables_rule,
+    iptables_rules4           => $iptables_rule,
     sysadmins                 => hiera('sysadmins', []),
+    puppetmaster_server       => 'puppetmaster.openstack.org',
     pin_puppet                => '3.6.',
   }
 
@@ -30,7 +38,7 @@ node 'jenkins.lab.100percentit.com' {
   }
 
   class { 'openstack_project::review':
-    project_config_repo                 => 'https://git.openstack.org/openstack-infra/project-config',
+    project_config_repo                 => 'https://github.com/anbangr/osci-project-config.git',
     github_oauth_token                  => hiera('gerrit_github_token', 'XXX'),
     github_project_username             => hiera('github_project_username', 'username'),
     github_project_password             => hiera('github_project_password', 'XXX'),
@@ -63,5 +71,60 @@ node 'jenkins.lab.100percentit.com' {
     swift_username                      => hiera('swift_store_user', 'username'),
     swift_password                      => hiera('swift_store_key', 'XXX'),
   }
+
+  class { 'openstack_project::jenkins':
+    project_config_repo     => 'https://git.openstack.org/openstack-infra/project-config',
+    jenkins_password        => hiera('jenkins_jobs_password', 'XXX'),
+    jenkins_ssh_private_key => hiera('jenkins_ssh_private_key_contents', 'XXX'),
+    ssl_cert_file           => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
+    ssl_key_file            => '/etc/ssl/private/ssl-cert-snakeoil.key',
+    ssl_chain_file          => '',
+  }
+
+  class { 'openstack_project::graphite':
+    sysadmins               => hiera('sysadmins', []),
+    graphite_admin_user     => hiera('graphite_admin_user', 'username'),
+    graphite_admin_email    => hiera('graphite_admin_email', 'email@example.com'),
+    graphite_admin_password => hiera('graphite_admin_password', 'XXX'),
+    statsd_hosts            => ['logstash.openstack.org',
+                                'nodepool.openstack.org',
+                                'zuul.openstack.org'],
+  }
+
+  class { 'openstack_project::zuul_prod':
+    project_config_repo            => 'https://git.openstack.org/openstack-infra/project-config',
+    gerrit_server                  => 'review.openstack.org',
+    gerrit_user                    => 'jenkins',
+    gerrit_ssh_host_key            => hiera('gerrit_ssh_rsa_pubkey_contents', 'XXX'),
+    zuul_ssh_private_key           => hiera('zuul_ssh_private_key_contents', 'XXX'),
+    url_pattern                    => 'http://logs.openstack.org/{build.parameters[LOG_PATH]}',
+    swift_authurl                  => 'https://identity.api.rackspacecloud.com/v2.0/',
+    swift_user                     => 'infra-files-rw',
+    swift_key                      => hiera('infra_files_rw_password', 'XXX'),
+    swift_tenant_name              => hiera('infra_files_tenant_name', 'tenantname'),
+    swift_region_name              => 'DFW',
+    swift_default_container        => 'infra-files',
+    swift_default_logserver_prefix => 'http://logs.openstack.org/',
+    swift_default_expiry           => 14400,
+    proxy_ssl_cert_file_contents   => hiera('zuul_ssl_cert_file_contents', 'XXX'),
+    proxy_ssl_key_file_contents    => hiera('zuul_ssl_key_file_contents', 'XXX'),
+    proxy_ssl_chain_file_contents  => hiera('zuul_ssl_chain_file_contents', 'XXX'),
+    zuul_url                       => 'http://zuul.openstack.org/p',
+    sysadmins                      => hiera('sysadmins', []),
+    statsd_host                    => 'graphite.openstack.org',
+    gearman_workers                => [
+      'jenkins.lab.100percentit.com',
+    ],
+  }
+
+  #$group = "zuul-merger"
+  class { 'openstack_project::zuul_merger':
+    gearman_server       => 'jenkins.lab.100percentit.com',
+    gerrit_server        => 'jenkins.lab.100percentit.com',
+    gerrit_user          => 'jenkins',
+    gerrit_ssh_host_key  => hiera('gerrit_ssh_rsa_pubkey_contents', 'XXX'),
+    zuul_ssh_private_key => hiera('zuul_ssh_private_key_contents', 'XXX'),
+    sysadmins            => hiera('sysadmins', []),
+  }
 }
-  
+
