@@ -8,11 +8,11 @@
 #
 # Default: should at least behave like an openstack server
 #
-node default {
-  class { 'openstack_project::server':
-    sysadmins => hiera('sysadmins', []),
-  }
-}
+#node default {
+#  class { 'openstack_project::server':
+#    sysadmins => hiera('sysadmins', []),
+#  }
+#}
 
 node 'jenkins.lab.100percentit.com' {
   class { 'openstack_project::server':

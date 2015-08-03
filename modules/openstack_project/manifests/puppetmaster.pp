@@ -68,7 +68,7 @@ class openstack_project::puppetmaster (
   }
 
 
-  include openstack_project::server
+  #include openstack_project::server
 
   file { '/etc/puppet/hiera.yaml':
     ensure  => present,
@@ -77,7 +77,7 @@ class openstack_project::puppetmaster (
     mode    => '0555',
     source  => 'puppet:///modules/openstack_project/puppetmaster/hiera.yaml',
     replace => true,
-    require => Class['openstack_project::server'],
+    #require => Class['openstack_project::server'],
   }
 
   file { '/var/lib/puppet/reports':
