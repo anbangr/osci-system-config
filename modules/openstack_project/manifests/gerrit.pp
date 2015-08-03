@@ -73,11 +73,11 @@ class openstack_project::gerrit (
   $secondary_index = true,
   $afs = false,
 ) {
-  class { 'openstack_project::server':
-    iptables_public_tcp_ports => [80, 443, 29418],
-    sysadmins                 => $sysadmins,
-    afs                       => $afs,
-  }
+  #class { 'openstack_project::server':
+    #iptables_public_tcp_ports => [80, 443, 29418],
+    #sysadmins                 => $sysadmins,
+    #afs                       => $afs,
+  #}
 
   class { 'jeepyb::openstackwatch':
     projects       => [

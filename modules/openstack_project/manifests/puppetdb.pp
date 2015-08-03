@@ -26,10 +26,10 @@ class openstack_project::puppetdb (
     $open_ports = [8081]
   }
 
-  class { 'openstack_project::server':
-    iptables_public_tcp_ports => $open_ports,
-    sysadmins                 => $sysadmins,
-  }
+  #class { 'openstack_project::server':
+  #  iptables_public_tcp_ports => $open_ports,
+  #  sysadmins                 => $sysadmins,
+  #}
 
   class { '::puppetdb::database::postgresql':
     require         => [User['postgres'],
