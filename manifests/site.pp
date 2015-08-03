@@ -79,12 +79,6 @@ node 'jenkins.lab.100percentit.com' {
 }
 
 node 'jenkins-salt.lab.100percentit.com' {
-  class { 'openstack_project::server':
-    iptables_public_tcp_ports => [4505, 4506, 8140, 8081, 80],
-    sysadmins                 => hiera('sysadmins', []),
-    pin_puppet                => '3.6.',
-  }
-
   class { 'openstack_project::review':
     project_config_repo                 => 'https://git.openstack.org/openstack-infra/project-config',
     github_oauth_token                  => hiera('gerrit_github_token', 'XXX'),
@@ -95,21 +89,21 @@ node 'jenkins-salt.lab.100percentit.com' {
     email_private_key                   => hiera('gerrit_email_private_key', 'XXX'),
     token_private_key                   => hiera('gerrit_rest_token_private_key', 'XXX'),
     gerritbot_password                  => hiera('gerrit_gerritbot_password', 'XXX'),
-    gerritbot_ssh_rsa_key_contents      => hiera('gerritbot_ssh_rsa_key_contents', 'XXX'),
-    gerritbot_ssh_rsa_pubkey_contents   => hiera('gerritbot_ssh_rsa_pubkey_contents', 'XXX'),
-    ssl_cert_file_contents              => hiera('gerrit_ssl_cert_file_contents', 'XXX'),
-    ssl_key_file_contents               => hiera('gerrit_ssl_key_file_contents', 'XXX'),
-    ssl_chain_file_contents             => hiera('gerrit_ssl_chain_file_contents', 'XXX'),
-    ssh_dsa_key_contents                => hiera('gerrit_ssh_dsa_key_contents', 'XXX'),
-    ssh_dsa_pubkey_contents             => hiera('gerrit_ssh_dsa_pubkey_contents', 'XXX'),
-    ssh_rsa_key_contents                => hiera('gerrit_ssh_rsa_key_contents', 'XXX'),
-    ssh_rsa_pubkey_contents             => hiera('gerrit_ssh_rsa_pubkey_contents', 'XXX'),
-    ssh_project_rsa_key_contents        => hiera('gerrit_project_ssh_rsa_key_contents', 'XXX'),
-    ssh_project_rsa_pubkey_contents     => hiera('gerrit_project_ssh_rsa_pubkey_contents', 'XXX'),
+    gerritbot_ssh_rsa_key_contents      => hiera('gerritbot_ssh_rsa_key_contents', ''),
+    gerritbot_ssh_rsa_pubkey_contents   => hiera('gerritbot_ssh_rsa_pubkey_contents', ''),
+    ssl_cert_file_contents              => hiera('gerrit_ssl_cert_file_contents', ''),
+    ssl_key_file_contents               => hiera('gerrit_ssl_key_file_contents', ''),
+    ssl_chain_file_contents             => hiera('gerrit_ssl_chain_file_contents', ''),
+    ssh_dsa_key_contents                => hiera('gerrit_ssh_dsa_key_contents', ''),
+    ssh_dsa_pubkey_contents             => hiera('gerrit_ssh_dsa_pubkey_contents', ''),
+    ssh_rsa_key_contents                => hiera('gerrit_ssh_rsa_key_contents', ''),
+    ssh_rsa_pubkey_contents             => hiera('gerrit_ssh_rsa_pubkey_contents', ''),
+    ssh_project_rsa_key_contents        => hiera('gerrit_project_ssh_rsa_key_contents', ''),
+    ssh_project_rsa_pubkey_contents     => hiera('gerrit_project_ssh_rsa_pubkey_contents', ''),
     ssh_welcome_rsa_key_contents        => hiera('welcome_message_gerrit_ssh_private_key', 'XXX'),
     ssh_welcome_rsa_pubkey_contents     => hiera('welcome_message_gerrit_ssh_public_key', 'XXX'),
-    ssh_replication_rsa_key_contents    => hiera('gerrit_replication_ssh_rsa_key_contents', 'XXX'),
-    ssh_replication_rsa_pubkey_contents => hiera('gerrit_replication_ssh_rsa_pubkey_contents', 'XXX'),
+    ssh_replication_rsa_key_contents    => hiera('gerrit_replication_ssh_rsa_key_contents', ''),
+    ssh_replication_rsa_pubkey_contents => hiera('gerrit_replication_ssh_rsa_pubkey_contents', ''),
     lp_sync_consumer_key                => hiera('gerrit_lp_consumer_key', 'XXX'),
     lp_sync_token                       => hiera('gerrit_lp_access_token', 'XXX'),
     lp_sync_secret                      => hiera('gerrit_lp_access_secret', 'XXX'),
