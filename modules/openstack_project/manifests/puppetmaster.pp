@@ -2,8 +2,8 @@
 #
 class openstack_project::puppetmaster (
   $root_rsa_key = 'xxx',
-  $puppetdb = true,
-  $puppetdb_server = 'puppetdb.openstack.org',
+  $puppetdb = false,
+  $puppetdb_server = '',
 ) {
   include logrotate
   include openstack_project::params
@@ -66,6 +66,9 @@ class openstack_project::puppetmaster (
     command     => 'sleep $((RANDOM\%600)) && find /var/lib/puppet/reports -name \'*.yaml\' -mtime +7 -execdir rm {} \;',
     environment => 'PATH=/var/lib/gems/1.8/bin:/usr/bin:/bin:/usr/sbin:/sbin',
   }
+
+
+  include openstack_project::server
 
   file { '/etc/puppet/hiera.yaml':
     ensure  => present,

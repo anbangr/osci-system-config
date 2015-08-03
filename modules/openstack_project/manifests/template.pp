@@ -208,11 +208,11 @@ class openstack_project::template (
   # Manage  python/pip
 
   $desired_virtualenv = '13.1.0'
-  class { '::pip':
-    index_url       => $pypi_index_url,
-    trusted_hosts   => $pypi_trusted_hosts,
-    manage_pip_conf => true,
-  }
+  #class { '::pip':
+    #index_url       => $pypi_index_url,
+    #trusted_hosts   => $pypi_trusted_hosts,
+    #manage_pip_conf => true,
+  #}
 
   if (( versioncmp($::virtualenv_version, $desired_virtualenv) < 0 )) {
     $virtualenv_ensure = $desired_virtualenv
