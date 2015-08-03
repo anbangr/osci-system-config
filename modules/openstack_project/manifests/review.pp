@@ -51,7 +51,8 @@ class openstack_project::review (
   $ssl_cert_file_contents = '',
   $ssl_key_file = "/etc/ssl/private/${::fqdn}.key",
   $ssl_key_file_contents = '',
-  $ssl_chain_file = '/etc/ssl/certs/intermediate.pem',
+  $ssl_chain_file = '',
+  #$ssl_chain_file = '/etc/ssl/certs/intermediate.pem',
   $ssl_chain_file_contents = '',
   # Create SSH server key by hand and supply here.
   $ssh_dsa_key_contents = '',
