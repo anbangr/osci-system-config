@@ -15,9 +15,9 @@ node default {
 }
 
 # Node-OS: precise
-node 'jenkins.lab.100percentit.com' {
+node 'osci-jenkins.lab.100percentit.com' {
   $group = "jenkins"
-  $zmq_event_receivers = ['jenkins.lab.100percentit.com']
+  $zmq_event_receivers = ['osci-jenkins.lab.100percentit.com']
   $iptables_rule = regsubst ($zmq_event_receivers,
                              '^(.*)$', '-m state --state NEW -m tcp -p tcp --dport 8888 -s \1 -j ACCEPT')
   class { 'openstack_project::server':
@@ -25,7 +25,7 @@ node 'jenkins.lab.100percentit.com' {
     iptables_rules6           => $iptables_rule,
     iptables_rules4           => $iptables_rule,
     sysadmins                 => hiera('sysadmins', []),
-    puppetmaster_server       => 'jenkins.lab.100percentit.com',
+    puppetmaster_server       => 'osci-jenkins.lab.100percentit.com',
     pin_puppet                => '3.6.',
   }
 
@@ -37,25 +37,13 @@ node 'jenkins.lab.100percentit.com' {
     ssl_key_file            => '/etc/ssl/private/ssl-cert-snakeoil.key',
     ssl_chain_file          => '',
   }
-
-  class { 'openstack_project::puppetmaster':
-    root_rsa_key => hiera('puppetmaster_root_rsa_key', ''),
-  }
+}
 
 
-  class { 'openstack_project::graphite':
-    sysadmins               => hiera('sysadmins', []),
-    graphite_admin_user     => hiera('graphite_admin_user', 'username'),
-    graphite_admin_email    => hiera('graphite_admin_email', 'email@example.com'),
-    graphite_admin_password => hiera('graphite_admin_password', 'password'),
-    statsd_hosts            => ['jenkins-salt.lab.100percentit.com',
-                                'jenkins.lab.100percentit.com'
-                               ],
-  }
-
+node 'osci-zuul.lab.100percentit.com' {
   class { 'openstack_project::zuul_prod':
     project_config_repo            => 'https://git.openstack.org/openstack-infra/project-config',
-    gerrit_server                  => 'jenkins-salt.lab.100percentit.com',
+    gerrit_server                  => 'osci-gerrit.lab.100percentit.com',
     gerrit_user                    => 'jenkins',
     gerrit_ssh_host_key            => hiera('gerrit_ssh_rsa_pubkey_contents', ''),
     zuul_ssh_private_key           => hiera('zuul_ssh_private_key_contents', ''),
@@ -73,12 +61,12 @@ node 'jenkins.lab.100percentit.com' {
     proxy_ssl_chain_file_contents  => hiera('zuul_ssl_chain_file_contents', ''),
     zuul_url                       => 'http://jenkins.lab.100percentit.com./p',
     sysadmins                      => hiera('sysadmins', []),
-    statsd_host                    => 'jenkins.lab.100percentit.com.',
-    gearman_workers                => ['jenkins.lab.100percentit.com'],
+    statsd_host                    => 'osci-statsd.lab.100percentit.com.',
+    gearman_workers                => ['osci-zuul.lab.100percentit.com'],
   }
 }
 
-node 'jenkins-salt.lab.100percentit.com' {
+node 'osci-gerrit.lab.100percentit.com' {
   class { 'openstack_project::review':
     project_config_repo                 => 'https://git.openstack.org/openstack-infra/project-config',
     github_oauth_token                  => hiera('gerrit_github_token', ''),
@@ -91,9 +79,9 @@ node 'jenkins-salt.lab.100percentit.com' {
     gerritbot_password                  => hiera('gerrit_gerritbot_password', 'password'),
     gerritbot_ssh_rsa_key_contents      => hiera('gerritbot_ssh_rsa_key_contents', ''),
     gerritbot_ssh_rsa_pubkey_contents   => hiera('gerritbot_ssh_rsa_pubkey_contents', ''),
-    ssl_cert_file          		 => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
+    ssl_cert_file          		          => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
     ssl_cert_file_contents              => hiera('gerrit_ssl_cert_file_contents', ''),
-    ssl_key_file            		=> '/etc/ssl/private/ssl-cert-snakeoil.key',
+    ssl_key_file            		        => '/etc/ssl/private/ssl-cert-snakeoil.key',
     ssl_key_file_contents               => hiera('gerrit_ssl_key_file_contents', ''),
     ssl_chain_file_contents             => hiera('gerrit_ssl_chain_file_contents', ''),
     ssh_dsa_key_contents                => hiera('gerrit_ssh_dsa_key_contents', ''),
