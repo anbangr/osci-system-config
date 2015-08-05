@@ -47,14 +47,14 @@ node 'osci-zuul.lab.100percentit.com' {
     gerrit_ssh_host_key            => hiera('gerrit_ssh_rsa_pubkey_contents', ''),
     zuul_ssh_private_key           => hiera('zuul_ssh_private_key_contents', ''),
     url_pattern                    => 'http://logs.openstack.org/{build.parameters[LOG_PATH]}',
-    swift_authurl                  => 'https://identity.api.rackspacecloud.com/v2.0/',
-    swift_user                     => 'infra-files-rw',
-    swift_key                      => hiera('infra_files_rw_password', 'password'),
-    swift_tenant_name              => hiera('infra_files_tenant_name', 'tenantname'),
-    swift_region_name              => 'DFW',
-    swift_default_container        => 'infra-files',
-    swift_default_logserver_prefix => 'http://logs.openstack.org/',
-    swift_default_expiry           => 14400,
+    #swift_authurl                  => 'https://identity.api.rackspacecloud.com/v2.0/',
+    #swift_user                     => 'infra-files-rw',
+    #swift_key                      => hiera('infra_files_rw_password', 'password'),
+    #swift_tenant_name              => hiera('infra_files_tenant_name', 'tenantname'),
+    #swift_region_name              => 'DFW',
+    #swift_default_container        => 'infra-files',
+    #swift_default_logserver_prefix => 'http://logs.openstack.org/',
+    #swift_default_expiry           => 14400,
     proxy_ssl_cert_file_contents   => hiera('zuul_ssl_cert_file_contents', ''),
     proxy_ssl_key_file_contents    => hiera('zuul_ssl_key_file_contents', ''),
     proxy_ssl_chain_file_contents  => hiera('zuul_ssl_chain_file_contents', ''),
@@ -85,10 +85,61 @@ node 'osci-gerrit.lab.100percentit.com' {
     gerritbot_password                  => hiera('gerrit_gerritbot_password', 'password'),
     gerritbot_ssh_rsa_key_contents      => hiera('gerritbot_ssh_rsa_key_contents', ''),
     gerritbot_ssh_rsa_pubkey_contents   => hiera('gerritbot_ssh_rsa_pubkey_contents', ''),
-    ssl_cert_file          		          => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
-    ssl_cert_file_contents              => hiera('gerrit_ssl_cert_file_contents', ''),
-    ssl_key_file            		        => '/etc/ssl/private/ssl-cert-snakeoil.key',
-    ssl_key_file_contents               => hiera('gerrit_ssl_key_file_contents', ''),
+    ssl_cert_file          		          => '',
+    ssl_cert_file_contents              => hiera('gerrit_ssl_cert_file_contents', '
+-----BEGIN CERTIFICATE-----
+MIIDXTCCAkWgAwIBAgIJAIgJ/liadTM+MA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
+BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
+aWRnaXRzIFB0eSBMdGQwHhcNMTUwODA1MTMzMTA5WhcNMTgwNDMwMTMzMTA5WjBF
+MQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50
+ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+CgKCAQEA2DzyQK5L4xmkosrF8pyT+SuGOv+O1ofnYfw/GUEe1OeqjcptcKgNn3TJ
+Sk+8BQ7LKyoECYGXLrvp+fRkQ6ba2FwriGQg38mgo7EdM/fw0QUqvs/TZpJ4qzma
+eiIDLzydc8C3kwldZl5UZM+1luB7zsA/vN57apdDDqNHgNEWdUBbGsSl1g2NI/p3
+Uf8aDWQUTseSoOh2+Rgh5QEZAP7hboX9cdHqM/W3h/ilygunvoWr1C+yVluQ7zsS
+h5eOyWinTbIsrl+jEJFygcPkBHhiTwIOqmuDaRVE2MJ2/kGHGnYmWGjhmrUi5pXg
+KzGjj3kthH4fonJsQ9xKGe93eLfzHwIDAQABo1AwTjAdBgNVHQ4EFgQUF7kOMbLa
+Z3nkN+8vhlAem79q7SQwHwYDVR0jBBgwFoAUF7kOMbLaZ3nkN+8vhlAem79q7SQw
+DAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAYvSQg+4wfri1FuKhEaqm
+5DxW5T0YDwpJr5DlQ8Kja0Z9B0CHl8l+B/vWnQrNNPspnKQRNIM6Zo23u+rnHBpH
+o0tpD7I5eH5Mk3p1X6kn/NOsTQnVR/SfrEEAhqR/1iQa7heXTF2u5kh6LepOvJcy
+uD3xWFN8v/AWxO9D/uX3sglSITewHrhyk/9Zx8ce+UgRcUV64fh48pqR7cMkYgE6
+J8OCpIxQhXMeEYzYmZDSfjO5CUBk67ukDUSZduOX8C0vDz9KOuxjNRm+9O6WT6/L
+dmf++0LLngvHVnag+xcXg8kksOvZ6pihU9PaNpoeQxa27cl1Q/c6HOlLdCz/avpH
+sw==
+-----END CERTIFICATE-----
+'),
+    ssl_key_file            		        => '',
+    ssl_key_file_contents               => hiera('gerrit_ssl_key_file_contents', '
+-----BEGIN PRIVATE KEY-----
+MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDYPPJArkvjGaSi
+ysXynJP5K4Y6/47Wh+dh/D8ZQR7U56qNym1wqA2fdMlKT7wFDssrKgQJgZcuu+n5
+9GRDptrYXCuIZCDfyaCjsR0z9/DRBSq+z9NmknirOZp6IgMvPJ1zwLeTCV1mXlRk
+z7WW4HvOwD+83ntql0MOo0eA0RZ1QFsaxKXWDY0j+ndR/xoNZBROx5Kg6Hb5GCHl
+ARkA/uFuhf1x0eoz9beH+KXKC6e+havUL7JWW5DvOxKHl47JaKdNsiyuX6MQkXKB
+w+QEeGJPAg6qa4NpFUTYwnb+QYcadiZYaOGatSLmleArMaOPeS2Efh+icmxD3EoZ
+73d4t/MfAgMBAAECggEAEd3fSlbccFRDFSxZ9LTZSSI+ggtxmuo5xQ/ZitWlnYPS
+xMpwBnnsPjuhEiHKcESLpvJeyQZLHpJqP7vguPJFbNEYy7kyOitnuX694fhfjnW1
+1XRIjFYX4FXvHJ5I0xNYEyNeR6jjbbznjjjXUTMVJ70cxxc+7Uy4PrJhCxS7nU5g
+BvJ/rTHaufHrlBM9AnOr4DXDZntSuFbZXfEgR5nwAMbLs+7XWEd6h07EvhjkpiIo
+bqqlhXXgYQwjmrK8/ZJQXYKXt1awIh9advtDAf9h3mNMeCtOMDXWSWaX1JYrQpJN
+QghCmR+vNZ0JgUSJmR/LcoG3gfMOMsov7+cMuMFfkQKBgQD5IOArjiAq8aQSbcDC
+v21E8ve4URbev34Mh6wNqEhaUNloIJbejsaXJNrTvEFz5jr76/eGX+B8osnX0PMd
+b6fND+ELyhH/sAEb8PYAIHPECmHyFvu0ARs8pz3MkDDDfdQ9wG7bZ6vTjXaMO+rm
+le2hPMjfVyUI5YUu3nDOTfwHhwKBgQDeM9P+/9p6FJ4WUaYnwmuRAdC44EKfSPyr
+ANY9SHCT8PXixLNNfsHJOF1njBTdC3QfG9dXZ4vesO1AQKADd2GMAgPAHvQrZkLf
+RbILiwaoTSyrkF/cei1BexXjDuYUv/fpbcgqWPA85XkxsT+C43LXxAlOro4yWbx6
+rbbjzGntqQKBgQCbu7lmgMoLDlMKUiGVnCSqXVgNmGM7i2k4W/dp8jCIhNHjDbxC
+E+6AvUEt6xjfYqSspq1tCrJCN2EF0FCprgqvXaXIwODPfS60UMT2/1Je0j64HzXp
+KGfmWoV/QwO4sQfkMk8aSIxZCq14rFwDGOYbTOwk8Uztasz+p37M+GL8MQKBgQCy
+SROIPvGlknVlow2WSUDVkIdQT2AlPgK9kmZTtZPeoDAqS3kybMpAEaGgO51h3pbF
+fylBUCvB+mPicffx0A/MrrEjrbJsQBjX3KwG5v3ofEOjRKwl00IMkB33mTSy4XSh
+Lxy0HbhkpBqh7H3xH14+EWUGZLhjXe0E4e0kyhcUQQKBgQCaJ2QVurbwXzSF+pl/
+KBbafJMbgbNCO+u5hT7ftS2SUR+GkkyGWdrykirpqflYGBCNLYiY3bwLOK09l3mO
+AzwobIUWSOnZiFPB1df2xSO5b4190u+GZ/L3Se/mthNgyZAB+O3XayKZrie/OdYs
+tHVwSXi3prXiU9OfceMBUYK7kQ==
+-----END PRIVATE KEY-----
+'),
     ssl_chain_file_contents             => hiera('gerrit_ssl_chain_file_contents', ''),
     ssh_dsa_key_contents                => hiera('gerrit_ssh_dsa_key_contents', '
 -----BEGIN DSA PRIVATE KEY-----
