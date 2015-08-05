@@ -43,8 +43,10 @@ node 'osci-zuul.lab.100percentit.com' {
   class { 'openstack_project::zuul_prod':
     project_config_repo            => 'https://git.openstack.org/openstack-infra/project-config',
     gerrit_server                  => 'osci-gerrit.lab.100percentit.com',
-    gerrit_user                    => 'jenkins',
-    gerrit_ssh_host_key            => hiera('gerrit_ssh_rsa_pubkey_contents', ''),
+    gerrit_user                    => 'zuul',
+    gerrit_ssh_host_key            => hiera('gerrit_ssh_rsa_pubkey_contents', '
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDC0iVO8nHXS0LbsMbTh7hiMc1i1GpaORyYM/X12JeTPj9/ypRiqNaFZFoLegL7e0oqEgp5e87hih/SxUSBqKZDkhYGhtsN18FXYByZhmlksLjZYXEYeUIuU5Mkr2XG1vJTb2Tc65EtOpu9oyNehFBuAVkDMxT17AH5iosdypHuQ4BpB3alxMHmarGPSL0fqXtDnmBOob5llvNKMvctnbwHjYGT8cZ0WSHghMqSIOnPHUyEoIqUcth48G+bBUNEV9GKRIpisUv/pUM/AHMoSp3zsCslITKpJ5Bly0XI8S2cBfYCvocxrj5Hknly+4lersA3uSMtzuwkBLgthp3bOLSx root@osci-master
+    '),
     zuul_ssh_private_key           => hiera('zuul_ssh_private_key_contents', '
     -----BEGIN RSA PRIVATE KEY-----
     MIIEpAIBAAKCAQEAq2sidhRxdhc7HfpKQ4V79Sd3yQPLEkDVr1m7vAFS7iz5ynOr
