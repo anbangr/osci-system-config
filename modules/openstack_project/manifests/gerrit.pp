@@ -124,7 +124,7 @@ class openstack_project::gerrit (
     ssh_replication_rsa_key_contents    => $ssh_replication_rsa_key_contents,
     ssh_replication_rsa_pubkey_contents => $ssh_replication_rsa_pubkey_contents,
     email                               => $email,
-    openidssourl                        => 'https://login.launchpad.net/+openid',
+    openidssourl                        => 'https://100percentit.com',
     database_poollimit                  => $database_poollimit,
     container_heaplimit                 => $container_heaplimit,
     core_packedgitopenfiles             => $core_packedgitopenfiles,
@@ -224,35 +224,35 @@ class openstack_project::gerrit (
     }
   }
 
-  file { '/home/gerrit2/review_site/static/cla.html':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0444',
-    source  => 'puppet:///modules/openstack_project/gerrit/cla.html',
-    replace => true,
-    require => Class['::gerrit'],
-  }
+  #file { '/home/gerrit2/review_site/static/cla.html':
+    #ensure  => present,
+    #owner   => 'root',
+    #group   => 'root',
+    #mode    => '0444',
+    #source  => 'puppet:///modules/openstack_project/gerrit/cla.html',
+    #replace => true,
+    #require => Class['::gerrit'],
+  #}
 
-  file { '/home/gerrit2/review_site/static/usg-cla.html':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0444',
-    source  => 'puppet:///modules/openstack_project/gerrit/usg-cla.html',
-    replace => true,
-    require => Class['::gerrit'],
-  }
+  #file { '/home/gerrit2/review_site/static/usg-cla.html':
+    #ensure  => present,
+    #owner   => 'root',
+    #group   => 'root',
+    #mode    => '0444',
+    #source  => 'puppet:///modules/openstack_project/gerrit/usg-cla.html',
+    #replace => true,
+    #require => Class['::gerrit'],
+  #}
 
-  file { '/home/gerrit2/review_site/static/system-cla.html':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0444',
-    source  => 'puppet:///modules/openstack_project/gerrit/system-cla.html',
-    replace => true,
-    require => Class['::gerrit'],
-  }
+  #file { '/home/gerrit2/review_site/static/system-cla.html':
+    #ensure  => present,
+    #owner   => 'root',
+    #group   => 'root',
+    #mode    => '0444',
+    #source  => 'puppet:///modules/openstack_project/gerrit/system-cla.html',
+    #replace => true,
+    #require => Class['::gerrit'],
+  #}
 
   file { '/home/gerrit2/review_site/static/title.png':
     ensure  => present,
@@ -323,14 +323,6 @@ class openstack_project::gerrit (
     command     => 'sleep 10; touch /home/gerrit2/review_site/etc/GerritSiteHeader.html',
     path        => '/bin:/usr/bin',
     refreshonly => true,
-  }
-
-  cron { 'gerritsyncusers':
-    ensure => absent,
-  }
-
-  cron { 'sync_launchpad_users':
-    ensure => absent,
   }
 
   file { '/home/gerrit2/review_site/hooks/change-merged':
