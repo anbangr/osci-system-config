@@ -90,8 +90,8 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDC0iVO8nHXS0LbsMbTh7hiMc1i1GpaORyYM/X12JeT
     proxy_ssl_chain_file_contents  => hiera('zuul_ssl_chain_file_contents', ''),
     zuul_url                       => 'http://osc-zuul.lab.100percentit.com./p',
     sysadmins                      => hiera('sysadmins', []),
-    statsd_host                    => 'osci-statsd.lab.100percentit.com.',
-    gearman_workers                => ['osci-zuul.lab.100percentit.com'],
+    #statsd_host                    => 'osci-statsd.lab.100percentit.com.',
+    gearman_workers                => ['osci-jenkins.lab.100percentit.com'],
   }
 }
 
