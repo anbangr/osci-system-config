@@ -85,7 +85,7 @@ node 'osci-gerrit.lab.100percentit.com' {
     gerritbot_password                  => hiera('gerrit_gerritbot_password', 'password'),
     gerritbot_ssh_rsa_key_contents      => hiera('gerritbot_ssh_rsa_key_contents', ''),
     gerritbot_ssh_rsa_pubkey_contents   => hiera('gerritbot_ssh_rsa_pubkey_contents', ''),
-    ssl_cert_file          		          => '',
+    ssl_cert_file          		          => '/etc/ssl/certs/gerrit.crt',
     ssl_cert_file_contents              => hiera('gerrit_ssl_cert_file_contents', '
 -----BEGIN CERTIFICATE-----
 MIIDXTCCAkWgAwIBAgIJAIgJ/liadTM+MA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
@@ -109,7 +109,7 @@ dmf++0LLngvHVnag+xcXg8kksOvZ6pihU9PaNpoeQxa27cl1Q/c6HOlLdCz/avpH
 sw==
 -----END CERTIFICATE-----
 '),
-    ssl_key_file            		        => '',
+    ssl_key_file            		        => '/etc/ssl/private/gerrit.key',
     ssl_key_file_contents               => hiera('gerrit_ssl_key_file_contents', '
 -----BEGIN PRIVATE KEY-----
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDYPPJArkvjGaSi
