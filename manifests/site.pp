@@ -67,6 +67,13 @@ node 'osci-zuul.lab.100percentit.com' {
 }
 
 node 'osci-gerrit.lab.100percentit.com' {
+  class { 'gerrit::mysql' :
+    mysql_root_password => 'password',
+    database_name = 'reviewdb',
+    database_user = 'gerrit2',
+    database_password = 'password',
+  }
+
   class { 'openstack_project::review':
     project_config_repo                 => 'https://git.openstack.org/openstack-infra/project-config',
     github_oauth_token                  => hiera('gerrit_github_token', ''),
