@@ -45,7 +45,35 @@ node 'osci-zuul.lab.100percentit.com' {
     gerrit_server                  => 'osci-gerrit.lab.100percentit.com',
     gerrit_user                    => 'jenkins',
     gerrit_ssh_host_key            => hiera('gerrit_ssh_rsa_pubkey_contents', ''),
-    zuul_ssh_private_key           => hiera('zuul_ssh_private_key_contents', ''),
+    zuul_ssh_private_key           => hiera('zuul_ssh_private_key_contents', '
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpAIBAAKCAQEAq2sidhRxdhc7HfpKQ4V79Sd3yQPLEkDVr1m7vAFS7iz5ynOr
+    IZ11Syok8PFhfTZKqnp7Wuue9FJsq38wowwqp1H13WEcMzK0eeIv5vslLLFeelz7
+    JfeSgdCeEApR8PwP8OUu8ppGIAc6Dwh+0ExU5GPtwNa34Ta+MjlcepYMLfC74tZ+
+    DlKV2IraIuPMZLiI9flcIAyw7yTPCSpQbHaIjOEUP0bh3L7MFvcFmwZS8RJfMSKP
+    fLvv3npAm6OkDBkQpMxzC+ceA70ElraDVIuaGTA7o8NUeTs6C8zYbU1iy6CGZPzN
+    o0L/EG0vjlqLOSvpSPl225uzrdhPUMyQWbB7SQIDAQABAoIBAQCjkQP+Fj25yCsB
+    zN1mFo4UfIehSLxR+4mq2332xHCkkkf79Wk7FytgAKPlQP6cYtzWVS81r5UqXygQ
+    cLoxKp/crqljh5FIDT8G+lxpFAYB4nFbYzPGo7ippC3e8moEABEZ9SZaGfmGAD9X
+    Lu0Kx3tNv0iTdI9bGEheVju3QUv33KkVaY/OI0pXVThZKpa/EsUMB4DBWLD4dzet
+    yTWT+UdizQS+SV8OqQ9nFGbrQfwoqzOkGFW3V6CQ5X1YQIKzjDSVcWVX0eQsz6LT
+    PuqsaCObyCWiJVMifno+xtLbcwoJHt8kEvrsLNv3wLfI6j8Q/GHNeHQ1wAGcjKDV
+    RWtX5fmdAoGBANalQhSVKjNb2VUeoklz7GjnCi9GPK0DZKDhaPPMU6PEkWeMD6qp
+    SgsNd3CeJAKWP5i+eQr6gyAuBFOvb6vTg38mhAgUjfCIq9IbHcj3GQKaaUHhiAge
+    2vDi3w/dmhWetvFeh29/uCiCV5wMDXw/8rpz7GG6H0hU3oSQyHiG6crjAoGBAMxx
+    1VEc46hX+YRV4nsDMkulFcrCDhECAeZr1pYRU/FpRi7kGBXuaktb2zteqaKCO2N8
+    QxPTnJI7f8UVcZBQdpYsgMKqMXsir09ZF3+HaK0/39S2q9Ii2cSCq7qXrOSQbkuC
+    uf+uFBEYvD/SpNxDiehZ+hGOYLQVEHL4Fy8AKFzjAoGAckLgrWJGZ7aiN9yp2V4b
+    YDB1THsgO52NyNKVcwq3D3vJR4zYnimmH8IYbdvRIYtn6WCjwMNgYBX++alvUdGz
+    s1EGgeKnOH8YsCz9KwjWyHr4QzjSmDgMpqSux5xYtN+bVVvTzvf3SaExEAGegCDu
+    jnC9SbyxgGilV35XKUnwVK8CgYBNA9TH6YoZMIrePzxB+sJHnLjI2LFT1t3AX39G
+    qOBmYLH/mA06tcV0/fVoOBDPFyAoKfda0Kx6qc9H/vv40Vba24jlzBc3u6kuyvD/
+    KZNVMGqxRt8TGe3PCSqH7/tBXuctquFGX91PU3IW2NMh5o9c6Ag79NaZABZiOPMC
+    0Zxi4QKBgQCkWJ30WDcEwV4GeL8faD3/2nHJftQ7XuCHvSoV2KTw+fnE4WNnM+qA
+    Njhb4h7vYrJPexkZy4vWeqCk5gl8n+M/WU6qUxBp6TjE3tfsxrrlzCKo6+d46OEe
+    6TYZb9J2XYDSkc5Olb8614cKRTc2H9DSYKEulze+bT6bCt9IfaZUBQ==
+    -----END RSA PRIVATE KEY-----
+    '),
     url_pattern                    => 'http://logs.openstack.org/{build.parameters[LOG_PATH]}',
     #swift_authurl                  => 'https://identity.api.rackspacecloud.com/v2.0/',
     #swift_user                     => 'infra-files-rw',
