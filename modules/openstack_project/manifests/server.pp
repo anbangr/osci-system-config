@@ -11,7 +11,7 @@ class openstack_project::server (
   $pin_puppet                = '3.',
   $ca_server                 = undef,
   $afs                       = false,
-  $puppetmaster_server       = 'jenkins.lab.100percentit.com',
+  $puppetmaster_server       = 'osci-master.lab.100percentit.com',
   $manage_exim               = true,
   $pypi_index_url            = 'https://pypi.python.org/simple',
   $pypi_trusted_hosts        = [

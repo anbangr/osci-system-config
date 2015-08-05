@@ -59,7 +59,7 @@ node 'osci-zuul.lab.100percentit.com' {
     proxy_ssl_cert_file_contents   => hiera('zuul_ssl_cert_file_contents', ''),
     proxy_ssl_key_file_contents    => hiera('zuul_ssl_key_file_contents', ''),
     proxy_ssl_chain_file_contents  => hiera('zuul_ssl_chain_file_contents', ''),
-    zuul_url                       => 'http://jenkins.lab.100percentit.com./p',
+    zuul_url                       => 'http://osc-zuul.lab.100percentit.com./p',
     sysadmins                      => hiera('sysadmins', []),
     statsd_host                    => 'osci-statsd.lab.100percentit.com.',
     gearman_workers                => ['osci-zuul.lab.100percentit.com'],
