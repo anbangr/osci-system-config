@@ -25,7 +25,7 @@ node 'osci-jenkins.lab.100percentit.com' {
     iptables_rules6           => $iptables_rule,
     iptables_rules4           => $iptables_rule,
     sysadmins                 => hiera('sysadmins', []),
-    puppetmaster_server       => 'osci-jenkins.lab.100percentit.com',
+    puppetmaster_server       => 'osci-master.lab.100percentit.com',
     pin_puppet                => '3.6.',
   }
 
@@ -38,7 +38,6 @@ node 'osci-jenkins.lab.100percentit.com' {
     ssl_chain_file          => '',
   }
 }
-
 
 node 'osci-zuul.lab.100percentit.com' {
   class { 'openstack_project::zuul_prod':
@@ -69,9 +68,9 @@ node 'osci-zuul.lab.100percentit.com' {
 node 'osci-gerrit.lab.100percentit.com' {
   class { 'gerrit::mysql' :
     mysql_root_password => 'password',
-    database_name = 'reviewdb',
-    database_user = 'gerrit2',
-    database_password = 'password',
+    database_name => 'reviewdb',
+    database_user => 'gerrit2',
+    database_password => 'password',
   }
 
   class { 'openstack_project::review':
