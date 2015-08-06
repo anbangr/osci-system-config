@@ -30,7 +30,7 @@ node 'osci-jenkins.lab.100percentit.com' {
   }
 
   class { 'openstack_project::jenkins':
-    project_config_repo     => 'https://git.openstack.org/openstack-infra/project-config',
+    project_config_repo     => 'https://github.com/anbangr/osci-project-config.git',
     jenkins_password        => hiera('jenkins_jobs_password', 'password'),
     jenkins_ssh_private_key => hiera('jenkins_ssh_private_key_contents', '
     -----BEGIN RSA PRIVATE KEY-----
@@ -69,7 +69,7 @@ node 'osci-jenkins.lab.100percentit.com' {
 
 node 'osci-zuul.lab.100percentit.com' {
   class { 'openstack_project::zuul_prod':
-    project_config_repo            => 'https://git.openstack.org/openstack-infra/project-config',
+    project_config_repo     => 'https://github.com/anbangr/osci-project-config.git',
     gerrit_server                  => 'osci-gerrit.lab.100percentit.com',
     gerrit_user                    => 'zuul',
     gerrit_ssh_host_key            => hiera('gerrit_ssh_rsa_pubkey_contents', '
@@ -132,7 +132,7 @@ node 'osci-gerrit.lab.100percentit.com' {
   }
 
   class { 'openstack_project::review':
-    project_config_repo                 => 'https://git.openstack.org/openstack-infra/project-config',
+    project_config_repo                 => 'https://github.com/anbangr/osci-project-config.git',
     github_oauth_token                  => hiera('gerrit_github_token', ''),
     github_project_username             => hiera('github_project_username', 'username'),
     github_project_password             => hiera('github_project_password', 'password'),
