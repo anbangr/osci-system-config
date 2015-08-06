@@ -16,7 +16,7 @@ node default {
 
 # Node-OS: precise
 node 'osci-jenkins.lab.100percentit.com' {
-  $group = "jenkins"
+  #$group = "jenkins"
   $zmq_event_receivers = ['osci-jenkins.lab.100percentit.com']
   $iptables_rule = regsubst ($zmq_event_receivers,
                              '^(.*)$', '-m state --state NEW -m tcp -p tcp --dport 8888 -s \1 -j ACCEPT')
@@ -32,7 +32,35 @@ node 'osci-jenkins.lab.100percentit.com' {
   class { 'openstack_project::jenkins':
     project_config_repo     => 'https://git.openstack.org/openstack-infra/project-config',
     jenkins_password        => hiera('jenkins_jobs_password', 'password'),
-    jenkins_ssh_private_key => hiera('jenkins_ssh_private_key_contents', ''),
+    jenkins_ssh_private_key => hiera('jenkins_ssh_private_key_contents', '
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpAIBAAKCAQEAz/1DwPldYSV0bfppWHLrRv5IYtKJSyaCwBje3m2ipPUokwfH
+    3Vw/ZM+F/eK7x7TmDunOGb4u2q45ADUjLapu0YAmwMB2c6fNZhBRqXAThK3SbGet
+    kEFcfkcf1EgQkeXCz/iqnrYJWxJ9Q6HaBAjHpcAJySx6Y4nX1P1KtXVBfzVOXA1u
+    CabUzJM+Py4OQ1dPw7JnxAbaMAqnd4f4LYg2G//t4jP3imRPom+BAjygBPvlljeD
+    Eb792/+wyCXqcDkQ5UrjAHNY0b8/Q3I+mYYIOQbEk1TyMfRGj/ob1lQ3gBAPi52n
+    pMqLx00YEfeH1WaE8AwP7bY83oZJ+tJXmer+QQIDAQABAoIBAGQ3amAfR2k5vOIJ
+    GJ1vsgIhIAvN2i2FvtaEpU6TkRzeq9A8nYcBneIbRDrS9xwBBCEHczFgO/9Ol1SM
+    RgkI6CC2GPYjRm/v2L5m+pIj2KPDhXKKekzZ0ZFe/+0vVByYksfWz49tsxBY1lay
+    M/RhrqEk6RIwBkDT+FU+PrM0bny1+ja19KHuySawV5xn3sg8QXT0xvRPy5PSBRsc
+    CdVM3GxSJZW5FSakwQw6aWHJryXvscSohWY1v+8SVUafRVPf1tZigehtbQc6fBPm
+    XIasfZ1FM85BcYEUGDeK3DrAh3/uh5LjeCfWdDB7z9TgzYbmaHxMFHuv5Rxck/OA
+    DGti6YECgYEA7Z6XXjiZG6f0gefrYB/30kV//OL3kKdjH8vQkdMdOhdVKYpqJqH3
+    8pNy7QQ+jlCDxrBgXCO6v7x4mpDALcMTUxg0e4QTQ+J7FaAOcBTiSs6bH8lPF0h/
+    LEhc1dxMkT0VqDcPQWM/rgiHglVqFtpMLCA1PXo7hklZyML/99B72kkCgYEA4BPt
+    mGtAco1l2u4mhf3tSFWQLsgqWVhr66LSa607gzteLHPyQy9kVxV5/sIv726Y17M3
+    8rcfnEUoZS+os1PyHF/gZMVDB/Eqz1L7YuHkrIXY/0hqaklZZiGE9Ffei55b5r5D
+    C5w0hwKHhA7Q9/acuiuOX1W5UxOQJwD0RyV8RDkCgYAp2DTFxefIhAI94i6EBf0p
+    TU3lpb58/c0p60V2eJv7/+HiZ9qbpQg58pdZf9bYTvt1wNenQi9/1lvStEzzghfk
+    GS4c1jxiRv7v5vjD6hmTnOCab2P7MKwciz21946QQRaQQenw1N6A8kWSwSHmlli1
+    qJJXmi/jTQV/oj9bT56P6QKBgQDNx19FvxDjYhjs0hHMsWHsMK+FVssVW89YCSIG
+    QoNJxAZ6+ku8CVSzaIStQXW2AzIXvH0fx64e25/6NKdPcEMCbcXrpQAm1gIDfWhg
+    6aQQD6c04TLgwtV3pkasAdndDCPHpmh5zAytA9ShoN2lKfPKQF+yC05zDZ8vQoAS
+    qkkReQKBgQDhrZrUuwZcJy/HWc3Y+H69iQf8gsg6IC80mmaGjZkyFslgNeH0cDh8
+    84G73tM6a3Ej9w5Y/xQK29HWw/y9FoWPFwElyNc4Dg8B4S7BHjR6kZZKbzJlj3Jt
+    7e2mViXE0Go4QoIMDv+NVx2aDxCIj5mnVPmITRVNfyKx6Pg52KiVIg==
+    -----END RSA PRIVATE KEY-----
+    '),
     ssl_cert_file           => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
     ssl_key_file            => '/etc/ssl/private/ssl-cert-snakeoil.key',
     ssl_chain_file          => '',
@@ -222,35 +250,35 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDC0iVO8nHXS0LbsMbTh7hiMc1i1GpaORyYM/X12JeT
 '),
     ssh_project_rsa_key_contents        => hiera('gerrit_project_ssh_rsa_key_contents', '
 -----BEGIN RSA PRIVATE KEY-----
-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
+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
 -----END RSA PRIVATE KEY-----
 '),
     ssh_project_rsa_pubkey_contents     => hiera('gerrit_project_ssh_rsa_pubkey_contents', '
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTI+scVBa2QCGaeEKVO0pyyLoqqaP2L+ZHxQ8uJj3RK7v7HLqf2RBCUk73iRDai1BC2un5fLF3YRQsjQdIJ8XEsaCPyxcyptwh+2dRsIIJXhSI78unzWAWc4578RT7akVwev7x/ieOGtbiJ361M1NRsG/hFwo6IX8Kcxy7BXHyqBZMqDEVtSDE8khWCJbZ2Cbw2VGmwfgO2PM17dcOekxOX7wVtNC+IiVjg6YNP9zZuANIZ9gIj+2DS3cINE05tlQJz3CqNpcvc7oM2m04QRgHn/+LmaJ1qMv4VQ68jPujyP6HoeBdYSzhkRjQJ3fiYSHrmBAg4VEjNzqkIiPc3HK7 root@osci-master
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjkmlZ3LSMjwwzvxDZX+OX6wBYtP1M6/KeqNXvFYTBfqx3ZyAhh3M6CvpEbViKpHkS2925naG7bD+PsyZiukVMgiLz+ioOV0IH35ws05fQr7HwRRtSrtq6tn/+gZ5VmrbMn6lYJFqWTUzsWxdhzEMIunRyWcdBGpm68ePtDF2VJj33p++G+IB13nCtscQOTJEhZaCWAtyAdoI+d10QVXISFqMSd8/mEOO3vpCovSj868EWOJ027YgVnNsJHV6d20yuzhAlhmRQ6AFhW+jV1UGxEHDhUMVl9LzRJlHPQD3Tmuwj4uGCXN39w3yKAcsq1GidoJCf0u+owqTS8ka38Lnj aruan@foreman
 '),
     ssh_welcome_rsa_key_contents        => hiera('welcome_message_gerrit_ssh_private_key', ''),
     ssh_welcome_rsa_pubkey_contents     => hiera('welcome_message_gerrit_ssh_public_key', ''),
