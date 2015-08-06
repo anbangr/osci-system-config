@@ -138,9 +138,7 @@ node 'osci-gerrit.lab.100percentit.com' {
     github_project_password             => hiera('github_project_password', 'password'),
     mysql_host                          => hiera('gerrit_mysql_host', 'localhost'),
     mysql_password                      => hiera('gerrit_mysql_password', 'password'),
-    email_private_key                   => hiera('gerrit_email_private_key', '
-    kvLed7ddvADDGX9j1NjHPyJazd7WaVcCZMit7T7Sab/swI/N
-    '),
+    email_private_key                   => hiera('gerrit_email_private_key', ' kvLed7ddvADDGX9j1NjHPyJazd7WaVcCZMit7T7Sab/swI/N'),
     token_private_key                   => hiera('gerrit_rest_token_private_key', ''),
     gerritbot_password                  => hiera('gerrit_gerritbot_password', 'password'),
     gerritbot_ssh_rsa_key_contents      => hiera('gerritbot_ssh_rsa_key_contents', ''),
