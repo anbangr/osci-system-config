@@ -74,6 +74,46 @@ node 'osci-jenkins.lab.100percentit.com' {
     ssl_key_file            => '/etc/ssl/private/ssl-cert-snakeoil.key',
     ssl_chain_file          => '',
   }
+
+  package { 'tox':
+    ensure   => 'latest',
+    provider => pip,
+    require  => Class[pip],
+  }
+
+  file { '/usr/local/jenkins':
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+file { '/usr/local/jenkins/common_data':
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    recurse => true,
+    purge   => true,
+    force   => true,
+    require => [File['/usr/local/jenkins'],
+                $::project_config::config_dir],
+    source  => $::project_config::jenkins_data_dir,
+  }
+
+  file { '/usr/local/jenkins/slave_scripts':
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    recurse => true,
+    purge   => true,
+    force   => true,
+    require => [File['/usr/local/jenkins'],
+                $::project_config::config_dir],
+    source  => $::project_config::jenkins_scripts_dir,
+  }
+
 }
 
 node 'osci-js01.lab.100percentit.com' {
