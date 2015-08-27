@@ -29,14 +29,14 @@ node 'osci-jenkins.lab.100percentit.com' {
     pin_puppet                => '3.6.',
   }
 
-  class { 'jenkins::slave':
-    user => false,
-    ssh_key => '',
-  }
+  #class { 'jenkins::slave':
+  #  user => false,
+  #  ssh_key => '',
+  #}
 
-  class { 'openstack_project::slave_common':
-    project_config_repo     => 'https://github.com/anbangr/osci-project-config.git',
-  } 
+  #class { 'openstack_project::slave_common':
+  #  project_config_repo     => 'https://github.com/anbangr/osci-project-config.git',
+  #} 
 
   class { 'openstack_project::jenkins':
     project_config_repo     => 'https://github.com/anbangr/osci-project-config.git',
@@ -73,6 +73,12 @@ node 'osci-jenkins.lab.100percentit.com' {
     ssl_cert_file           => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
     ssl_key_file            => '/etc/ssl/private/ssl-cert-snakeoil.key',
     ssl_chain_file          => '',
+  }
+}
+
+node 'osci-js01.lab.100percentit.com' {
+  class { 'openstack_project::single_use_slave':
+    project_config_repo     => 'https://github.com/anbangr/osci-project-config.git',
   }
 }
 
