@@ -81,13 +81,6 @@ node 'osci-jenkins.lab.100percentit.com' {
     require  => Class[pip],
   }
 
-  file { '/usr/local/jenkins':
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-
   file { '/usr/local/jenkins/common_data':
     ensure  => directory,
     owner   => 'root',
