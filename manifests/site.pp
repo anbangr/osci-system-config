@@ -88,7 +88,7 @@ node 'osci-jenkins.lab.100percentit.com' {
     mode   => '0755',
   }
 
-file { '/usr/local/jenkins/common_data':
+  file { '/usr/local/jenkins/common_data':
     ensure  => directory,
     owner   => 'root',
     group   => 'root',
