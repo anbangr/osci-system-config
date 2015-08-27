@@ -29,6 +29,10 @@ node 'osci-jenkins.lab.100percentit.com' {
     pin_puppet                => '3.6.',
   }
 
+  class { 'openstack_project::slave_common':
+    project_config_repo     => 'https://github.com/anbangr/osci-project-config.git',
+  } 
+
   class { 'openstack_project::jenkins':
     project_config_repo     => 'https://github.com/anbangr/osci-project-config.git',
     jenkins_password        => hiera('jenkins_jobs_password', 'password'),
@@ -298,8 +302,9 @@ lae55VAtCBmn2qsGSYfddpPckESHP5EpX0vMoKT/FmienW2LmnywFQ==
   
 
 node 'osci-js01.lab.100percentit.com' {
-  include openstack_project
-  include openstack_project::simple_slave
+  class { 'openstack_project::single_use_slae':
+    project_config_repo     => 'https://github.com/anbangr/osci-project-config.git',
+  }
 }
 
 node 'osci-zm.lab.100percentit.com' {
