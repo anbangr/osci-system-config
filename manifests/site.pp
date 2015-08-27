@@ -298,6 +298,7 @@ lae55VAtCBmn2qsGSYfddpPckESHP5EpX0vMoKT/FmienW2LmnywFQ==
   
 
 node 'osci-js01.lab.100percentit.com' {
+  include openstack_project
   include openstack_project::simple_slave
 }
 
