@@ -296,7 +296,12 @@ lae55VAtCBmn2qsGSYfddpPckESHP5EpX0vMoKT/FmienW2LmnywFQ==
   }
 }
   
-node 'osci-ci.lab.100percentit.com' {
+
+node 'osci-js01.lab.100percentit.com' {
+  include openstack_project::simple_slave
+}
+
+node 'osci-zm.lab.100percentit.com' {
   $group = "zuul-merger"
   class { 'openstack_project::zuul_merger':
     gearman_server       => 'osci-zuul.lab.100percentit.com',
