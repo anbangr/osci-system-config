@@ -29,6 +29,10 @@ node 'osci-jenkins.lab.100percentit.com' {
     pin_puppet                => '3.6.',
   }
 
+  class { 'jenkins::slave':
+    user => false,
+  }
+
   class { 'openstack_project::slave_common':
     project_config_repo     => 'https://github.com/anbangr/osci-project-config.git',
   } 
