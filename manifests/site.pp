@@ -31,6 +31,7 @@ node 'osci-jenkins.lab.100percentit.com' {
 
   class { 'jenkins::slave':
     user => false,
+    ssh_key => '',
   }
 
   class { 'openstack_project::slave_common':
