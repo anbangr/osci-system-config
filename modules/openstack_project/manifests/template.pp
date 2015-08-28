@@ -15,7 +15,7 @@ class openstack_project::template (
   $ca_server                 = undef,
   $enable_unbound            = true,
   $afs                       = false,
-  $puppetmaster_server       = 'osci-master.lab.100pecentit.com',
+  $puppetmaster_server       = 'osci-master.lab.100percentit.com',
   $manage_exim               = false,
   $sysadmins                 = [],
   $pypi_index_url            = 'https://pypi.python.org/simple',
